@@ -44,11 +44,7 @@ class DebitCard(initialBalance: Int = 0) : Card(initialBalance) {
     private fun checkAmount(amount: Int, operation: String) {
         if (balance - amount < 0) {
             throw InsufficientFundsException(
-                "Cannot $operation ${amountToString(amount)}. Balance: ${
-                    amountToString(
-                        balance
-                    )
-                }"
+                "Cannot $operation ${amountToString(amount)}. Balance: ${amountToString(balance)}"
             )
         }
     }
@@ -81,11 +77,7 @@ class CreditCard(val creditLimit: Int, initialBalance: Int = 0) : Card(initialBa
     private fun checkAmount(amount: Int, operation: String) {
         if (funds - amount < 0) {
             throw InsufficientFundsException(
-                "Cannot $operation ${amountToString(amount)}. Total funds: ${
-                    amountToString(
-                        funds
-                    )
-                }"
+                "Cannot $operation ${amountToString(amount)}. Total funds: ${amountToString(funds)}"
             )
         }
     }
