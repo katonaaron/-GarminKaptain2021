@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 
 val factorial: (Int) -> Int = { n ->
     tailrec fun factAcc(n: Int, acc: Int): Int =
-        if (n <= 0)
+        if (n == 0)
             acc
         else
             factAcc(n - 1, n * acc)
