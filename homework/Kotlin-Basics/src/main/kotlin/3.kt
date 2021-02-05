@@ -17,14 +17,19 @@ fun factorial2(n: Int): Int =
         (1..n).reduce { acc, i -> acc * i }
 
 
+fun factorial3(n: Int): Int = (1..n).reduceOrNull { acc, i -> acc * i } ?: 1
+
+
 // Test driver
 
 fun main() {
+
+
+    factorial(1_000_000)
+
     testFactorial(factorial)
-
-    factorial(1)
-
     testFactorial(::factorial2)
+    testFactorial(::factorial3)
 }
 
 fun testFactorial(fact: (Int) -> Int) {
