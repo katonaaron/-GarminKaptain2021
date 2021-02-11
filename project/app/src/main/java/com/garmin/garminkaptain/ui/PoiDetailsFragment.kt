@@ -6,14 +6,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.garmin.garminkaptain.R
 import com.garmin.garminkaptain.TAG
 import com.garmin.garminkaptain.data.poiList
+import com.garmin.garminkaptain.databinding.PoiDetailsFragment2Binding
 
 class PoiDetailsFragment : Fragment() {
+
+    private var _binding: PoiDetailsFragment2Binding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     private val poi = poiList.first()
 
@@ -31,22 +36,21 @@ class PoiDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Log.d(TAG, "onCreateView: called")
-        return inflater.inflate(R.layout.poi_details_fragment2, container, false)
+        _binding = PoiDetailsFragment2Binding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "onViewCreated: called")
-        view.apply {
-            findViewById<TextView>(R.id.poi_name_view).text = poi.name
-            findViewById<TextView>(R.id.poi_type_view).text = poi.poiType
-            findViewById<TextView>(R.id.poi_rating_view).text =
-                getString(R.string.label_rating, poi.reviewSummary.averageRating)
-            findViewById<TextView>(R.id.poi_num_reviews_view).text =
+        binding.apply {
+            poiNameView.text = poi.name
+            poiTypeView.text = poi.poiType
+            poiRatingView.rating = poi.reviewSummary.averageRating.toFloat()
+            poiNumReviewsView.text =
                 getString(R.string.label_num_reviews, poi.reviewSummary.numberOfReviews)
-            findViewById<Button>(R.id.poi_view_reviews_button).isEnabled =
-                poi.reviewSummary.numberOfReviews > 0
+            poiViewReviewsButton.isEnabled = poi.reviewSummary.numberOfReviews > 0
         }
     }
 
@@ -73,6 +77,7 @@ class PoiDetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d(TAG, "onDestroyView() called")
+        _binding = null
     }
 
     override fun onDestroy() {
