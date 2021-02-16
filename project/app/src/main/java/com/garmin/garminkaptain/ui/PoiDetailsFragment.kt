@@ -7,20 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.garmin.garminkaptain.R
 import com.garmin.garminkaptain.TAG
 import com.garmin.garminkaptain.data.poiList
 import com.garmin.garminkaptain.databinding.PoiDetailsFragment2Binding
 
 class PoiDetailsFragment : Fragment() {
+    private val args: PoiDetailsFragmentArgs by navArgs()
+
 
     private var _binding: PoiDetailsFragment2Binding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    private val poi = poiList.first()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,14 +45,23 @@ class PoiDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "onViewCreated: called")
-        binding.apply {
-            poiNameView.text = poi.name
-            poiTypeView.text = poi.poiType
-            poiRatingView.rating = poi.reviewSummary.averageRating.toFloat()
-            poiNumReviewsView.text =
-                getString(R.string.label_num_reviews, poi.reviewSummary.numberOfReviews)
-            poiViewReviewsButton.isEnabled = poi.reviewSummary.numberOfReviews > 0
+
+        val poiId = args.poiId
+        val poi = poiList.find { it.id == poiId }
+
+        poi?.let {
+            binding.apply {
+                poiNameView.text = poi.name
+                poiTypeView.text = poi.poiType
+                poiRatingView.rating = poi.reviewSummary.averageRating.toFloat()
+                poiNumReviewsView.text =
+                    getString(R.string.label_num_reviews, poi.reviewSummary.numberOfReviews)
+                poiViewReviewsButton.isEnabled = poi.reviewSummary.numberOfReviews > 0
+            }
+
         }
+
+
     }
 
     override fun onStart() {
