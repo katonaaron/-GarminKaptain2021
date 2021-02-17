@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.garmin.garminkaptain.ExtensionsKt" />
+
+        <variable
+            name="review"
+            type="com.garmin.garminkaptain.data.Review" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_normal">
+
+
+        <TextView
+            android:id="@+id/review_title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{review.title}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/purple_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Very good!" />
+
+        <TextView
+            android:id="@+id/review_author_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:text="@{review.author}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/teal_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/review_rating_view"
+            app:layout_constraintTop_toBottomOf="@+id/review_title_view"
+            tools:text="Batman" />
+
+        <RatingBar
+            android:id="@+id/review_rating_view"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="@{(float)review.rating}"
+            android:stepSize="0.1"
+            app:layout_constraintBottom_toBottomOf="@+id/review_author_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/review_author_view" />
+
+        <TextView
+            android:id="@+id/review_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{review.text}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_author_view"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin varius sem lacus, id interdum tellus gravida et. Etiam posuere nisl id velit viverra, at tempus arcu auctor. Suspendisse potenti. Donec molestie urna eleifend tortor hendrerit porttitor. Aliquam facilisis lectus sit amet scelerisque semper. Mauris placerat quam sodales magna elementum, tristique aliquet ex varius. Mauris et nisl ut magna iaculis laoreet. Fusce nisl mauris, facilisis sit amet dictum id, aliquet sed velit. Proin sit amet purus at felis vulputate finibus luctus sed quam. Quisque eu porttitor lacus, et posuere sapien. Vivamus pellentesque ipsum non urna pharetra tempor. Nulla dignissim enim nulla, ut ultricies massa pulvinar ut. " />
+
+        <TextView
+            android:id="@+id/review_date_created_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ExtensionsKt.formatDate(review.dateCreated)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_text_view"
+            tools:text="2020-11-15" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
